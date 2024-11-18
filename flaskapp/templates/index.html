@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Churn Prediction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Fjord+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-light">
+    <div class="container-fluid mt-5">
+        <h2 class="title-text text-center mb-4">CUSTOMER CHURN PREDICTION</h2>
+        <form id="predictionForm" class="form-container bg-white p-4 rounded shadow-sm" onsubmit="return false;">    
+            <!-- Form Fields -->
+            <div class="row mb-3">
+                <div class="col">
+                    <label for=" Gender" class="form-label"><i class="fa-solid fa-venus-mars me-2"></i></i>Gender:</label>
+                    <select name="Gender" id="Gender" class="form-control" required>
+                        <option value="" disabled selected>Select Gender</option>
+                        <option value="0">Female</option>
+                        <option value="1">Male</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for=" Geography" class="form-label"><i class="fa-solid fa-globe me-2"></i>Geography:</label>
+                    <select name="Geography" id="Geography" class="form-control" required>
+                        <option value="" disabled selected>Select Geography</option>
+                        <option value="0">France</option>
+                        <option value="1">Germany</option>
+                        <option value="2">Spain</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for=" IsActiveMember" class="form-label"><i class="fa-solid fa-check-circle me-2"></i>Is Active Member:</label>
+                    <select name="IsActiveMember" id="IsActiveMember" class="form-control" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+                
+                <div class="col">
+                    <label for=" Age" class="form-label"><i class="fa-solid fa-dna me-2"></i>Age:</label>
+                    <input type="number" name="Age" class="form-control" placeholder="18 to 92" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for=" CreditScore" class="form-label"><i class="fa-regular fa-chart-bar me-2"></i>Credit Score:</label>
+                    <input type="number" name="CreditScore" class="form-control" placeholder="350 to 850" required>
+                </div>
+                <div class="col">
+                    <label for=" Balance" class="form-label"><i class="fa-solid fa-dollar-sign me-2"></i>Balance:</label>
+                    <input type="number" name="Balance" class="form-control" placeholder="0 to 250898.09" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for=" SatisfactionScore" class="form-label"><i class="fa-regular fa-face-smile me-2"></i>Satisfaction Score: <span id="satisfactionScoreValue"></i>3</span></label>
+                <input type="range" id="SatisfactionScore" name="SatisfactionScore" class="form-range" min="1" max="5" value="3">
+                <div class="slider-markers">
+                    <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for=" PointEarned" class="form-label"><i class="fa-regular fa-star me-2"></i>Point Earned:</label>
+                <input type="number" name="PointEarned" class="form-control" placeholder="119 to 1000" required>
+            </div>
+            <div class="mb-3">
+                <label for=" Tenure" class="form-label"><i class="fa-solid fa-business-time me-2"></i>Tenure (in years): <span id="tenureValue">5</span></label>
+                <input type="range" id="Tenure" name="Tenure" class="form-range" min="0" max="10" value="5">
+                <div class="slider-markers">
+                    <span>0</span><span>2</span><span>4</span><span>6</span><span>8</span><span>10</span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for=" EstimatedSalary" class="form-label"><i class="fa-solid fa-piggy-bank me-2"></i>Estimated Salary:</label>
+                <input type="number" name="EstimatedSalary" class="form-control" placeholder="11.58 to 199992.48" required>
+            </div>
+            <div class="mb-3">
+                <label for=" NumOfProducts" class="form-label"><i class="fa-solid fa-file-invoice-dollar me-2"></i>Number of Products: <span id="numOfProductsValue"></i>2</span></label>
+                <input type="range" id="NumOfProducts" name="NumOfProducts" class="form-range" min="1" max="4" value="2">
+                <div class="slider-markers">
+                    <span>1</span><span>2</span><span>3</span><span>4</span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="HasCrCard" class="form-label"><i class="fa-solid fa-question me-2"></i>Has Credit Card:</label>
+                <select id="HasCrCard" name="HasCrCard" class="form-control" required>
+                    <option value="" disabled selected>Select</option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="CardType" class="form-label"><i class="fa-regular fa-credit-card me-2"></i>Type of Card:</label>
+                <select name="CardType" id="CardType" class="form-control" required>
+                    <option value="" disabled selected>Select Card Type</option>
+                    <option value="0">DIAMOND</option>
+                    <option value="1">GOLD</option>
+                    <option value="2">PLATINUM</option>
+                    <option value="3">SILVER</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Predict</button>
+        </form>
+
+        <div id="result" class="mt-4"></div>
+        <!-- Visualization Section -->
+        <div class="text-center">
+            <button id="showPlotBtn" class="btn btn-success mt-4">Show Variable Importance Plot</button>
+        </div>
+        <div id="plotContainer" style="display: none;">
+            <img id="plotImage" class="img-fluid mt-3" alt="Variable Importance Plot">
+        </div>
+        <div class="text-center">
+            <button id="showPlotBtn2" class="btn btn-primary mt-4">Show Scoring History Plot</button>
+        </div>
+        <div id="scoringHistoryContainer" style="display: none;">
+            <img id="scoringHistoryImage" class="img-fluid mt-3" alt="Scoring History Plot">
+        </div>
+
+        <h3 class="text-center mt-4">Partial Dependency Plot</h3>
+        <div class="container mb-3">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <select id="featureSelect" class="form-select">
+                        <option value="" disabled selected>Select Feature</option>
+                        <option value="Gender">Gender</option>
+                        <option value="Geography">Geography</option>
+                        <option value="IsActiveMember">IsActiveMember</option>
+                        <option value="Age">Age</option>
+                        <option value="CreditScore">CreditScore</option>
+                        <option value="Balance">Balance</option>
+                        <option value="SatisfactionScore">Satisfaction Score</option>
+                        <option value="PointEarned">Point Earned</option>
+                        <option value="Tenure">Tenure</option>
+                        <option value="EstimatedSalary">Estimated Salary</option>
+                        <option value="NumOfProducts">Num Of Products</option>
+                        <option value="CardType">Card Type</option>
+                        <option value="HasCrCard">Has Credit Card</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center">
+            <button id="showPartialPlotBtn" class="btn btn-primary">Show Partial Dependency Plot</button>
+        </div>
+        <div id="partialPlotContainer" class="d-flex justify-content-center mt-3" style="display: none;">
+            <img id="partialPlot" class="img-fluid" alt="Partial Dependency Plot" style="display: none;" src="">
+        </div>        
+    </div>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>
