@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Customer Churn Prediction Result</h1>
+        <div class="result">
+            {% if prediction %}
+                <p>The predicted probability of customer churn is: <strong>{{ prediction }}%</strong></p>
+            {% else %}
+                <p>No prediction result available.</p>
+            {% endif %}
+        </div>
+        <a href="/" class="btn btn-primary">Back to Home</a>
+    </div>
+</body>
+</html>
